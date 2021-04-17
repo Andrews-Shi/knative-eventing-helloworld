@@ -6,13 +6,15 @@ FROM golang:1.14 as builder
 # Copy local code to the container image.
 WORKDIR /app
 
+RUN git clone https://github.com/Andrews-Shi/knative-eventing-helloworld.git ./
+
 # Retrieve application dependencies using go modules.
 # Allows container builds to reuse downloaded dependencies.
-COPY go.* ./
+COPY ./knative-eventing-helloworld/go.* ./
 RUN go mod download
 
 # Copy local code to the container image.
-COPY . ./
+COPY ./knative-eventing-helloworld/*.* ./
 
 # Build the binary.
 # -mod=readonly ensures immutable go.mod and go.sum in container builds.
