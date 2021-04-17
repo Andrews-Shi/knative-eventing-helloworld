@@ -6,7 +6,7 @@ FROM golang:1.14 as builder
 # Copy local code to the container image.
 WORKDIR /app
 
-RUN git clone https://github.com/Andrews-Shi/knative-eventing-helloworld.git && mv ./knative-eventing-helloworld/go.* ./ && go mod download && mv ./knative-eventing-helloworld/go.* ./ && CGO_ENABLED=0 GOOS=linux go build -mod=readonly  -v -o helloworld
+RUN git clone https://github.com/Andrews-Shi/knative-eventing-helloworld.git && mv ./knative-eventing-helloworld/go.* ./ && go mod download && mv ./knative-eventing-helloworld/* ./ && CGO_ENABLED=0 GOOS=linux go build -mod=readonly  -v -o helloworld
 
 # Use a Docker multi-stage build to create a lean production image.
 # https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
